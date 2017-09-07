@@ -1,8 +1,6 @@
 require 'utf8mb4rails/version'
 require 'utf8mb4rails/migrator'
-require 'departure'
 
-Departure.configure do |_config|; end
 def usage
   puts
   puts 'Usage: '
@@ -22,6 +20,9 @@ module Utf8mb4rails
   namespace :db do
     desc 'migrates a table[/column] (TABLE, COLUMN env vars) to utf8mb encoding'
     task utf8mb4: :environment do
+      require 'departure'
+      Departure.configure do |_config|; end
+
       table = ENV['TABLE']
       unless table
         puts 'Please specify a table with TABLE='
