@@ -18,6 +18,10 @@ Or install it yourself as:
 
     $ gem install utf8mb4rails
 
+This gem uses [https://github.com/departurerb/departure](departure) a Percona's pt-online-schema-change runner for ActiveRecord migrations.
+
+You need to have percona tools installed prior to using this gem. See instructions [https://github.com/departurerb/departure](here).
+
 ## Usage
 
 This gem will add in your rails project a new task called utf8mb4. This tast is aimed to easily convert tables in utf8 into
