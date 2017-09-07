@@ -1,0 +1,63 @@
+require 'active_record'
+# Setups the test database with the schema_migrations table that ActiveRecord
+# requires for the migrations, plus a table for the Comment model used throught
+# the tests.
+#
+class TestDatabase
+
+  # Constructor
+  #
+  # @param config [Hash]
+  def initialize(config)
+    @config = config
+    @database = config[:database]
+  end
+
+  # Creates the test database, the schema_migrations and the comments tables.
+  # It drops any of them if they already exist
+  def setup
+    drop_and_create_test_database
+    drop_and_create_schema_migrations_table
+  end
+
+  # Creates the ActiveRecord's schema_migrations table required for
+  # migrations to work. Before, it drops the table if it already exists
+  def drop_and_create_schema_migrations_table
+   sql = [
+    "USE #{@database}",
+    "DROP TABLE IF EXISTS schema_migrations",
+    "CREATE TABLE schema_migrations ( version varchar(255) COLLATE utf8_unicode_ci NOT NULL, UNIQUE KEY unique_schema_migrations (version)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci"
+    ]
+
+    run_commands(sql)
+  end
+
+  private
+
+  attr_reader :config, :database
+
+  def drop_and_create_test_database
+    sql = [
+      "DROP DATABASE IF EXISTS #{@database}",
+      "CREATE DATABASE #{@database} DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_unicode_ci"
+    ]
+
+    run_commands(sql)
+  end
+
+  def run_commands(sql)
+    conn.execute("START TRANSACTION")
+    sql.each { |str|
+      conn.execute(str)
+    }
+    conn.execute("COMMIT")
+  end
+
+  def conn
+    @conn ||= ActiveRecord::Base.mysql2_connection(
+      host: @config[:hostname],
+      username: @config[:username],
+      password: @config[:password],
+      reconnect: true)
+  end
+end
