@@ -20,7 +20,7 @@ module Utf8mb4rails
   extend Rake::DSL
 
   namespace :db do
-    desc 'migrates a table (ENV["TABLE"]) to utf8mb encoding'
+    desc 'migrates a table[/column] (TABLE, COLUMN env vars) to utf8mb encoding'
     task utf8mb4: :environment do
       table = ENV['TABLE']
       unless table

@@ -29,7 +29,7 @@ utf8mb4 without truncating column contents and maintaining its original schema (
 
 ```
 ...
-rake db:utf8mb4                          # migrates a table (ENV["TABLE"]) to utf8mb encoding
+rake db:utf8mb4                          # migrates a table[/column] (TABLE, COLUMN env vars) to utf8mb encoding
 ...
 
 ```
