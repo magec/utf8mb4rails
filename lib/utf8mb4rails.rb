@@ -32,7 +32,7 @@ module Utf8mb4rails
       column = ENV['COLUMN']
       runner = Migrator::Runner.new
       if column
-        puts 'Migrating #{table}.#{column}'
+        puts "Migrating #{table}.#{column}"
         runner.migrate_column!(table, column)
       else
         puts 'No column specified, will migrate the entire table'
