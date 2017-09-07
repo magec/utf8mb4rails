@@ -18,9 +18,9 @@ Or install it yourself as:
 
     $ gem install utf8mb4rails
 
-This gem uses [https://github.com/departurerb/departure](departure) a Percona's pt-online-schema-change runner for ActiveRecord migrations.
+This gem uses [departure](https://github.com/departurerb/departure) a Percona's pt-online-schema-change runner for ActiveRecord migrations.
 
-You need to have percona tools installed prior to using this gem. See instructions [https://github.com/departurerb/departure](here).
+You need to have percona tools installed prior to using this gem. See instructions [here](https://github.com/departurerb/departure).
 
 ## Usage
 
