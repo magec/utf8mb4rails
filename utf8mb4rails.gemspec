@@ -27,6 +27,6 @@ This gem adds a task to migrate mysql utf8 tables to utf8mb4 in rails projects.'
   spec.add_runtime_dependency 'mysql2', '~> 0.4.0'
 
   spec.add_development_dependency 'bundler', '~> 1.12'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
 end
