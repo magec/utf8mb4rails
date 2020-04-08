@@ -5,7 +5,7 @@ module Utf8mb4rails
     # received from the database
     class ColumnInfo
       TEXT_TYPES = %w(CHAR VARCHAR TINYTEXT TEXT MEDIUMTEXT LONGTEXT).freeze
-      attr_accessor :info
+      attr_reader :info
 
       # Receives a hash with (:type, :default, :max_length, :charset)
       def initialize(info)
@@ -19,14 +19,18 @@ module Utf8mb4rails
 
       # @return String : the sql part of the new type of the column definition
       def new_type_for_sql
-        return "#{info[:type]}(#{info[:max_length]})" if info[:type] =~ /CHAR/
-        info[:type]
+        info_type = info[:type]
+        return "#{info_type}(#{info[:max_length]})" if info_type =~ /CHAR/
+
+        info_type
       end
 
       # @return String : the sql part of the default value of the column definition
       def default_value_for_sql
-        return nil unless info[:default]
-        "default '#{info[:default]}'"
+        info_default = info[:default]
+        return nil unless info_default
+
+        "default '#{info_default}'"
       end
 
       # @return Bool : True if the column is of a text type

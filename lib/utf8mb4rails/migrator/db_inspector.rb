@@ -1,7 +1,9 @@
 module Utf8mb4rails
   module Migrator
+    # DB introspection (only for columns)
     class DBInspector
       # Initializes AR
+      # :reek:UtilityFunction
       def initialize
         ActiveRecord::Base.establish_connection(
           ActiveRecord::Base.connection_config.merge(adapter: 'percona')
@@ -10,6 +12,7 @@ module Utf8mb4rails
 
       ##
       # @returns [Array<String>] An array with column names
+      # :reek:UtilityFunction
       def columns(table)
         ActiveRecord::Base.connection.columns(table).map(&:name)
       end
@@ -20,6 +23,7 @@ module Utf8mb4rails
       # @param [String] column
       #
       # @returns [Hash] { type: String, default: String or nil, charset: String or nil }
+      # :reek:FeatureEnvy
       def column_info(table, column)
         sql = "SELECT DATA_TYPE, COLUMN_DEFAULT, CHARACTER_SET_NAME, CHARACTER_MAXIMUM_LENGTH
         FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '#{table}'
@@ -36,6 +40,7 @@ module Utf8mb4rails
 
       private
 
+      # :reek:UtilityFunction
       def database_name
         ActiveRecord::Base.connection.current_database
       end

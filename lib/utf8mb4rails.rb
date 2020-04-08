@@ -14,6 +14,7 @@ def usage
   puts 'You can also specify the COLLATION (utf8mb4_unicode_520_ci)'
 end
 
+# Top Module
 module Utf8mb4rails
   extend Rake::DSL
 
@@ -21,7 +22,8 @@ module Utf8mb4rails
     desc 'migrates a table[/column] (TABLE, COLUMN env vars) to utf8mb encoding'
     task utf8mb4: :environment do
       require 'departure'
-      Departure.configure do |_config|; end
+      Departure.configure do |_config|
+      end
 
       table = ENV['TABLE']
       unless table
